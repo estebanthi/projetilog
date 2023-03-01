@@ -2,6 +2,9 @@ interface ListOwner {
     onAdd(item): void;
     onRemove(item): void;
     onUpdate(item): void;
+    addDefault(): any;
+
+    items: any[];
 }
 
 class List extends HTMLElement {
@@ -43,6 +46,12 @@ class List extends HTMLElement {
 
     render() {
         this.innerHTML = '';
+
+        const btnAdd = document.createElement('button');
+        btnAdd.innerText = 'Ajouter';
+        btnAdd.addEventListener('click', () => this.add(this.owner.addDefault()));
+        this.appendChild(btnAdd);
+
         this.items.forEach(item => {
             const div = document.createElement('div');
             const button = document.createElement('button');

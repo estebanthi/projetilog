@@ -10,13 +10,29 @@ class Book {
 const Library = {
     onAdd(book) {
         console.log(`Added book: ${book.title}`);
+        this.items.push(book);
+        console.log(this.items);
     },
     onRemove(book) {
         console.log(`Removed book: ${book.title}`);
+        const index = this.items.indexOf(book);
+        if (index !== -1) {
+            this.items.splice(index, 1);
+        }
     },
     onUpdate(book) {
         console.log(`Updated book: ${book.title}`);
-    }
+        const index = this.items.indexOf(book);
+        if (index !== -1) {
+            this.items[index] = book;
+        }
+    },
+    addDefault() {
+        const title = prompt('Titre:') || 'Sans titre';
+        const author = prompt('Auteur:') || 'Sans auteur';
+        return new Book(title, author);
+    },
+    items: []
 };
 const book1 = new Book('The Great Gatsby', 'F. Scott Fitzgerald');
 const book2 = new Book('The Catcher in the Rye', 'J.D. Salinger');
