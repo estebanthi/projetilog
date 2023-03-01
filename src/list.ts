@@ -65,13 +65,25 @@ const list = new List({
     }
 });
 
-list.add("Item 1");
-list.add("Item 2");
-list.add("Item 3");
+list.add("item 1");
 list.remove_("Item 1");
 list.update("Item 2");
 
 
 document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(list);
+});
+const addButton = document.getElementById("add-button");
+addButton.addEventListener("click", () => {
+    list.add("Item 1");
+
+});
+
+const removeButton = document.getElementById("remove-button");
+removeButton.addEventListener("click", () => {
+  const items = list.getAllItems();
+  if (items.length > 0) {
+    const item = items[items.length - 1];
+    list.remove_(item);
+  }
 });
