@@ -12,4 +12,11 @@ class Book implements IBook {
         this.title = title;
         this.author = author;
     }
+
+    toString(): string {
+        return `${this.title} by ${this.author}`;
+    }
 }
+
+
+export default Book;

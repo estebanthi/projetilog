@@ -42,36 +42,8 @@ class List extends HTMLElement {
     }
 
     render() {
-        this.innerHTML = `
-            <ul>
-                ${this.items.map(item => `<li>${item}</li>`).join("")}
-            </ul>
-        `;
+        this.innerHTML = this.items.map(item => `<li>${item.toString()}</li>`).join('');
     }
 }
 
-
 customElements.define('my-list', List);
-
-const list = new List({
-    onAdd(item) {
-        console.log(`Added item: ${item}`);
-    },
-    onRemove(item) {
-        console.log(`Removed item: ${item}`);
-    },
-    onUpdate(item) {
-        console.log(`Updated item: ${item}`);
-    }
-});
-
-list.add("Item 1");
-list.add("Item 2");
-list.add("Item 3");
-list.remove_("Item 1");
-list.update("Item 2");
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.body.appendChild(list);
-});
