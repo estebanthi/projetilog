@@ -14,7 +14,7 @@ class Book implements IBook {
     }
 
     toString(): string {
-        return `${this.title} by ${this.author}`;
+        return `${this.title} par ${this.author}`;
     }
 }
 
@@ -46,9 +46,9 @@ const Library = {
     items: []
 };
 
-const book1 = new Book('The Great Gatsby', 'F. Scott Fitzgerald');
-const book2 = new Book('The Catcher in the Rye', 'J.D. Salinger');
-const book3 = new Book('The Grapes of Wrath', 'John Steinbeck');
+const book1 = new Book("Le Petit Prince", "Antoine de Saint-Exupéry");
+const book2 = new Book("Harry Potter à l'école des sorciers", "J.K. Rowling");
+const book3 = new Book("Le Seigneur des Anneaux", "J.R.R. Tolkien");
 
 const books = [book1, book2, book3];
 
