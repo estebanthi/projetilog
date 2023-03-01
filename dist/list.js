@@ -1,25 +1,15 @@
-interface ListOwner {
-    onAdd(item): void;
-    onRemove(item): void;
-    onUpdate(item): void;
-}
-
 class List extends HTMLElement {
-    private items: any[] = [];
-    private owner: ListOwner;
-
-    constructor(owner: ListOwner) {
+    constructor(owner) {
         super();
+        this.items = [];
         this.owner = owner;
     }
-
-    add(item: any) {
+    add(item) {
         this.items.push(item);
         this.owner.onAdd(item);
         this.render();
     }
-
-    remove_(item: any) {
+    remove_(item) {
         const index = this.items.indexOf(item);
         if (index !== -1) {
             this.items.splice(index, 1);
@@ -27,8 +17,7 @@ class List extends HTMLElement {
         }
         this.render();
     }
-
-    update(item: any) {
+    update(item) {
         const index = this.items.indexOf(item);
         if (index !== -1) {
             this.items[index] = item;
@@ -36,11 +25,9 @@ class List extends HTMLElement {
         }
         this.render();
     }
-
-    getAllItems(): any[] {
+    getAllItems() {
         return this.items;
     }
-
     render() {
         this.innerHTML = `
             <ul>
@@ -49,10 +36,7 @@ class List extends HTMLElement {
         `;
     }
 }
-
-
 customElements.define('my-list', List);
-
 const list = new List({
     onAdd(item) {
         console.log(`Added item: ${item}`);
@@ -64,14 +48,12 @@ const list = new List({
         console.log(`Updated item: ${item}`);
     }
 });
-
 list.add("Item 1");
 list.add("Item 2");
 list.add("Item 3");
 list.remove_("Item 1");
 list.update("Item 2");
-
-
 document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(list);
 });
+//# sourceMappingURL=list.js.map
