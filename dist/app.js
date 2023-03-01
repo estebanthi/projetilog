@@ -8,6 +8,9 @@ class Book {
     }
 }
 const Library = {
+    logItems() {
+        console.log(this.items.map((book, index) => `${index + 1} - ${book.toString()}`).join('\n'));
+    },
     onAdd(book) {
         console.log(`Added book: ${book.title}`);
         this.items.push(book);
@@ -45,4 +48,5 @@ addEventListener('DOMContentLoaded', () => {
 list.add(books[0]);
 list.add(books[1]);
 list.add(books[2]);
+Library.logItems();
 //# sourceMappingURL=app.js.map

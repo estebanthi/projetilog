@@ -35,13 +35,13 @@ class List extends HTMLElement {
         btnAdd.addEventListener('click', () => this.add(this.owner.addDefault()));
         this.appendChild(btnAdd);
         this.items.forEach(item => {
-            const div = document.createElement('div');
+            const li = document.createElement('li');
             const button = document.createElement('button');
             button.innerText = 'Supprimer';
             button.addEventListener('click', () => this.remove_(item));
-            div.innerText = item.toString();
-            div.appendChild(button);
-            this.appendChild(div);
+            li.innerText = item.toString();
+            li.appendChild(button);
+            this.appendChild(li);
         });
     }
 }
