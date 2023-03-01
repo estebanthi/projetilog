@@ -42,7 +42,16 @@ class List extends HTMLElement {
     }
 
     render() {
-        this.innerHTML = this.items.map(item => `<li>${item.toString()}</li>`).join('');
+        this.innerHTML = '';
+        this.items.forEach(item => {
+            const div = document.createElement('div');
+            const button = document.createElement('button');
+            button.innerText = 'Supprimer';
+            button.addEventListener('click', () => this.remove_(item));
+            div.innerText = item.toString();
+            div.appendChild(button);
+            this.appendChild(div);
+        });
     }
 }
 
