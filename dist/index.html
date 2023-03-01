@@ -4,18 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projet ILOG</title>
+    <script src="list.js"></script>
 </head>
 <body>
     <h1>Projet ILOG</h1>
     <p>Projet de test</p>
-    <ul id="my-list"></ul>
-
-    <script src="../src/list.ts"></script>
-    <script>
-        const listContainer = document.getElementById('my-list');
-        const list = new List({ notifyListUpdate: () => {} });
-        listContainer.appendChild(list);
-        list.items = ['Item 1', 'Item 2', 'Item 3'];
-    </script>
 </body>
 </html>
