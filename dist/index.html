@@ -8,7 +8,14 @@
 <body>
     <h1>Projet ILOG</h1>
     <p>Projet de test</p>
-    <my-list></my-list>
-<script src="list.js"></script>
+    <ul id="my-list"></ul>
+
+    <script src="../src/list.ts"></script>
+    <script>
+        const listContainer = document.getElementById('my-list');
+        const list = new List({ notifyListUpdate: () => {} });
+        listContainer.appendChild(list);
+        list.items = ['Item 1', 'Item 2', 'Item 3'];
+    </script>
 </body>
 </html>

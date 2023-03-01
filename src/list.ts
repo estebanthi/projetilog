@@ -1,55 +1,61 @@
-interface ListOwner<T> {
-    onAdd(item: T): void;
-    onRemove(item: T): void;
-    onUpdate(item: T): void;
-}
-
+interface ListOwner {
+    notifyListUpdate(action: string, item: any): void;
+  }
+  
 class List<T> extends HTMLElement {
-    private items: T[] = [];
-    private owner: ListOwner<T>;
 
-    constructor(owner: ListOwner<T>) {
-        super();
-        this.owner = owner;
-    }
+private _owner: ListOwner;
+private _items: T[];
 
-    add(item: T) {
-        this.items.push(item);
-        this.owner.onAdd(item);
-        this.render();
-    }
+constructor(owner: ListOwner) {
+    super();
+    this._owner = owner;
+    this._items = [];
 
-    remove_(item: T) {
-        const index = this.items.indexOf(item);
-        if (index !== -1) {
-            this.items.splice(index, 1);
-            this.owner.onRemove(item);
+    // Observer for changes in the list
+    const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+        if (mutation.type === 'childList') {
+        // Check if an item was added
+        if (mutation.addedNodes.length > 0) {
+            const addedItem = mutation.addedNodes[0];
+            const index = Array.from(this.children).indexOf(addedItem as Element);
+            this._owner.notifyListUpdate('add', this._items[index]);
         }
-        this.render();
-    }
-
-    update(item: T) {
-        const index = this.items.indexOf(item);
-        if (index !== -1) {
-            this.items[index] = item;
-            this.owner.onUpdate(item);
+        // Check if an item was removed
+        else if (mutation.removedNodes.length > 0) {
+            const removedItem = mutation.removedNodes[0];
+            const index = Array.from(this.children).indexOf(removedItem as Element);
+            this._owner.notifyListUpdate('remove', this._items[index]);
         }
-        this.render();
-    }
+        }
+    });
+    });
 
-    getAllItems(): T[] {
-        return this.items;
-    }
-
-    render() {
-        console.log('rendering list');
-        this.innerHTML = '';
-        this.items.forEach(item => {
-            const li = document.createElement('li');
-            li.textContent = item.toString();
-            this.appendChild(li);
-        });
-    }
+    // Observe changes to the list
+    observer.observe(this, { childList: true });
 }
 
-customElements.define('my-list', List);
+connectedCallback() {
+    this.render();
+}
+
+get items(): T[] {
+    return this._items;
+}
+
+set items(items: T[]) {
+    this._items = items;
+    this.render();
+}
+  
+render() {
+    this.innerHTML = '';
+    this._items.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = item.toString();
+    this.appendChild(li);
+    });
+}
+}
+  
