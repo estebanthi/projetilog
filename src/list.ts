@@ -7,6 +7,7 @@ interface ListOwner {
     onRemove(item): void;
     onUpdate(item): void;
     addDefault(): any;
+    modify(item): any[];
 
     items: any[];
 }
@@ -45,9 +46,7 @@ class List extends HTMLElement {
     }
 
     //La méthode "update" met à jour un élément de la liste et déclenche la méthode "onUpdate" de l'interface ListOwner.
-
-    update(item: any) {
-        const index = this.items.indexOf(item);
+    update(index: number, item: any) {
         if (index !== -1) {
             this.items[index] = item;
             this.owner.onUpdate(item);
@@ -77,8 +76,14 @@ class List extends HTMLElement {
             const button = document.createElement('button');
             button.innerText = 'Supprimer';
             button.addEventListener('click', () => this.remove_(item));
+
+            const modifyButton = document.createElement('button');
+            modifyButton.innerText = 'Modifier';
+            modifyButton.addEventListener('click', () => this.update(this.owner.modify(item)));
+
             li.innerText = item.toString();
             li.appendChild(button);
+            li.appendChild(modifyButton);
             this.appendChild(li);
         });
     }

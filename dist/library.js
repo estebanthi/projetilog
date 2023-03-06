@@ -1,3 +1,7 @@
+//Library est un objet qui contient plusieurs méthodes pour gérer les livres dans la bibliothèque. 
+//La méthode logItems() affiche tous les livres de la bibliothèque sur la console en utilisant la méthode toString() définie dans la classe Book. 
+//Les méthodes onAdd(), onRemove() et onUpdate() sont utilisées pour ajouter, supprimer et mettre à jour des livres dans la bibliothèque. 
+//La méthode addDefault() est utilisée pour ajouter un livre par défaut si l'utilisateur ne fournit pas de titre ou d'auteur.
 const Library = {
     logItems() {
         console.log(this.items.map((book, index) => `${index + 1} - ${book.toString()}`).join('\n'));
@@ -19,6 +23,13 @@ const Library = {
         if (index !== -1) {
             this.items[index] = book;
         }
+    },
+    modify(book) {
+        const title = prompt('Titre:', book.title) || book.title;
+        const author = prompt('Auteur:', book.author) || book.author;
+        book.title = title;
+        book.author = author;
+        return [this.items.indexOf(book), book];
     },
     addDefault() {
         const title = prompt('Titre:') || 'Sans titre';
