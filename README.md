@@ -44,6 +44,13 @@ const Library = {
             this.items[index] = book;
         }
     },
+    modify(book: Book) {
+        const title = prompt('Titre:', book.title) || book.title;
+        const author = prompt('Auteur:', book.author) || book.author;
+        book.title = title;
+        book.author = author;
+        return [this.items.indexOf(book), book];
+    },
     addDefault(): Book {
         const title = prompt('Titre:') || 'Sans titre';
         const author = prompt('Auteur:') || 'Sans auteur';
@@ -101,6 +108,13 @@ const Library = {
         if (index !== -1) {
             this.items[index] = book;
         }
+    },
+    modify(book: Book) {
+        const title = prompt('Titre:', book.title) || book.title;
+        const author = prompt('Auteur:', book.author) || book.author;
+        book.title = title;
+        book.author = author;
+        return [this.items.indexOf(book), book];
     },
     addDefault(): Book {
         const title = prompt('Titre:') || 'Sans titre';
