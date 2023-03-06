@@ -1,14 +1,21 @@
+//Ce projet consiste en la définition d'une classe "List" qui étend la classe "HTMLElement" pour créer une liste d'éléments. 
+//La classe List est conçue pour être utilisée avec une implémentation de l'interface "ListOwner".
+//La classe List contient des méthodes pour ajouter, supprimer et mettre à jour des éléments dans la liste. 
+//Elle contient également une méthode pour récupérer tous les éléments de la liste. 
+//Enfin, elle contient une méthode "render" qui génère et affiche la liste d'éléments dans le DOM.
 class List extends HTMLElement {
     constructor(owner) {
         super();
         this.items = [];
         this.owner = owner;
     }
+    //La méthode "add" ajoute un élément à la liste et déclenche la méthode "onAdd" de l'interface ListOwner.
     add(item) {
         this.items.push(item);
         this.owner.onAdd(item);
         this.render();
     }
+    //La méthode "remove_" supprime un élément de la liste et déclenche la méthode "onRemove" de l'interface ListOwner.
     remove_(item) {
         const index = this.items.indexOf(item);
         if (index !== -1) {
@@ -17,6 +24,7 @@ class List extends HTMLElement {
         }
         this.render();
     }
+    //La méthode "update" met à jour un élément de la liste et déclenche la méthode "onUpdate" de l'interface ListOwner.
     update(item) {
         const index = this.items.indexOf(item);
         if (index !== -1) {
@@ -25,9 +33,12 @@ class List extends HTMLElement {
         }
         this.render();
     }
+    //La méthode "getAllItems" retourne tous les éléments de la liste.
     getAllItems() {
         return this.items;
     }
+    //La méthode "render" crée un bouton "Ajouter" qui permet d'ajouter un nouvel élément à la liste. 
+    //Elle crée ensuite un élément de liste pour chaque élément dans la liste et y ajoute un bouton "Supprimer" qui permet de supprimer l'élément correspondant.
     render() {
         this.innerHTML = '';
         const btnAdd = document.createElement('button');
@@ -45,5 +56,6 @@ class List extends HTMLElement {
         });
     }
 }
+//La méthode "customElements.define" est utilisée pour définir le composant "my-list".
 customElements.define('my-list', List);
 //# sourceMappingURL=list.js.map
