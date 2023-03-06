@@ -79,7 +79,12 @@ class List extends HTMLElement {
 
             const modifyButton = document.createElement('button');
             modifyButton.innerText = 'Modifier';
-            modifyButton.addEventListener('click', () => this.update(this.owner.modify(item)));
+            modifyButton.addEventListener('click', () => {
+                const res = this.owner.modify(item);
+                const index = res[0];
+                const newItem = res[1];
+                this.update(index, newItem);
+            });
 
             li.innerText = item.toString();
             li.appendChild(button);
