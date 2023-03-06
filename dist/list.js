@@ -46,6 +46,7 @@ class List extends HTMLElement {
         this.appendChild(btnAdd);
         this.items.forEach(item => {
             const li = document.createElement('li');
+            const div = document.createElement('div');
             const button = document.createElement('button');
             button.innerText = 'Supprimer';
             button.addEventListener('click', () => this.remove_(item));
@@ -58,8 +59,9 @@ class List extends HTMLElement {
                 this.update(index, newItem);
             });
             li.innerText = item.toString();
-            li.appendChild(button);
-            li.appendChild(modifyButton);
+            div.appendChild(modifyButton);
+            div.appendChild(button);
+            li.appendChild(div);
             this.appendChild(li);
         });
     }
